@@ -18,6 +18,9 @@ export default {
 .fw300 {
   font-weight: 300
 }
+.fw400 {
+  font-weight: 400
+}
 .fw500 {
   font-weight: 500
 }

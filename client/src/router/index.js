@@ -4,7 +4,8 @@ import Router from 'vue-router'
 import DashboardPage from '@/components/DashboardPage'
 import UserLogin from '@/components/UserLogin'
 import UserRegister from '@/components/UserRegister'
-import UserForgotPasswordReset from '@/components/UserForgotPasswordReset'
+import UserForgotResetPassword from '@/components/UserForgotResetPassword'
+import UserChangePassword from '@/components/UserChangePassword'
 
 Vue.use(Router)
 
@@ -12,7 +13,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: UserLogin
+      component: DashboardPage
     },
     {
       path: '/dashboard',
@@ -30,9 +31,14 @@ export default new Router({
       component: UserRegister
     },
     {
-      path: '/password-reset',
-      name: 'UserForgotPasswordReset',
-      component: UserForgotPasswordReset
+      path: '/reset-password',
+      name: 'UserForgotResetPassword',
+      component: UserForgotResetPassword
+    },
+    {
+      path: '/change-password',
+      name: 'UserChangePassword',
+      component: UserChangePassword
     }
   ]
 })
