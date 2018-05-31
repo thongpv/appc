@@ -111,8 +111,8 @@
     </v-toolbar>
 
     <v-content>
-      <v-toolbar>
-        <!-- <v-toolbar-side-icon></v-toolbar-side-icon> -->
+      <v-toolbar
+        >
         <v-spacer></v-spacer>
         <v-toolbar-title
           class="fw400"
@@ -135,13 +135,108 @@
         </v-toolbar-side-icon>
       </v-toolbar>
 
-      <v-container fluid fill-height>
-        <v-layout>
-          <v-flex>
+      <!-- <v-container fluid fill-height> -->
+        <!-- <v-layout> -->
+          <!-- <v-flex> -->
             <!-- Content -->
-          </v-flex>
-        </v-layout>
-      </v-container>
+            <div>
+            <section id="msgap">
+              <div class="msgap__wrap">
+                <div class="msgap__avatar">
+                  <img src="http://via.placeholder.com/50x50" alt="">
+                </div>
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur 1 1.</p>
+                  </article>
+                </div>
+              </div>
+              
+              <div class="msgap__wrap msgap__wrap--me">
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông me</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor.</p>
+                  </article>
+                </div>
+              </div>
+              
+              <div class="msgap__wrap">
+                <div class="msgap__avatar">
+                  <img src="http://via.placeholder.com/50x50" alt="">
+                </div>
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor.</p>
+                  </article>
+                </div>
+              </div>
+              
+              <div class="msgap__wrap msgap__wrap--me">
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông me</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Lorem ipsum dolor.</p>
+                  </article>
+                </div>
+              </div>
+
+              <div class="msgap__wrap">
+                <div class="msgap__avatar">
+                  <img src="http://via.placeholder.com/50x50" alt="">
+                </div>
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor sit amet.</p>
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur 1 1.</p>
+                  </article>
+                </div>
+              </div>
+              
+              <div class="msgap__wrap msgap__wrap--me">
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông me</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor.</p>
+                  </article>
+                </div>
+              </div>
+              
+              <div class="msgap__wrap">
+                <div class="msgap__avatar">
+                  <img src="http://via.placeholder.com/50x50" alt="">
+                </div>
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor.</p>
+                  </article>
+                </div>
+              </div>
+              
+              <div class="msgap__wrap msgap__wrap--me">
+                <div class="msgap__content">
+                  <h3 class="msgap__content__title">Phạm Thông me</h3>
+                  <article class="msgap__content__msg">
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Lorem ipsum dolor.</p>
+                    <p>Lorem ipsum dolor.</p>
+                  </article>
+                </div>
+              </div>
+            </section>
+            </div>
+          <!-- </v-flex> -->
+        <!-- </v-layout> -->
+      <!-- </v-container> -->
     </v-content>
     
   <!-- navigation-drawer RIGHT  -->
@@ -316,5 +411,90 @@ export default {
 
 .footer .inp-message {
   box-shadow: none;
+}
+
+#msgap h3 {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  color: #ccc;
+}
+.msgap__wrap {
+  display: flex;
+  margin-bottom: 15px;
+}
+.msgap__wrap .msgap__avatar {
+  padding-right: 15px;
+  align-self: flex-end;
+}
+.msgap__wrap .msgap__avatar img {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+.msgap__wrap .msgap__content {
+  display: flex;
+  flex-direction: column;
+}
+.msgap__wrap .msgap__content p {
+  background-color: #e6e5ea;
+  color: #333;
+  padding: 10px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  border-radius: 0 5px 5px 0;
+  max-width: max-content;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.msgap__wrap .msgap__content p:first-child {
+  border-radius: 5px 5px 5px 0;
+}
+.msgap__wrap .msgap__content p:last-child {
+  border-radius: 0 5px 5px 5px;
+}
+.msgap__wrap .msgap__content p:hover {
+  background-color: #eeedf1;
+}
+.msgap__wrap--me {
+  justify-content: flex-end;
+  text-align: right;
+}
+.msgap__wrap--me .msgap__content {
+  display: flex;
+  flex-direction: column;
+}
+.msgap__wrap--me .msgap__content p {
+  background-color: #289dfd;
+  color: #fff;
+  padding: 10px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  border-radius: 5px 0 0 5px;
+  max-width: max-content;
+}
+.msgap__wrap--me .msgap__content p:first-child {
+  border-radius: 5px 5px 0 5px;
+}
+.msgap__wrap--me .msgap__content p:last-child {
+  border-radius: 5px 0 5px 5px;
+}
+.msgap__wrap--me .msgap__content p:hover {
+  background-color: #4fadfa;
+}
+
+html {
+  overflow: hidden;
+}
+
+main.content {
+  padding-bottom: 87px !important;
+  height: 100vh;
+}
+
+.content--wrap {
+  overflow: auto;
 }
 </style>
