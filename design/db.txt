@@ -1,5 +1,10 @@
 ### users
-_id  username  password  email  gender  remember_token  created_at
+_id  username  password  email  gender  birthday  avatar  remember_token  created_at
 
 ### password_resets
 _id  email  token  created_at
+
+### group
+_id  name  password  user_id  options
+
+### 
