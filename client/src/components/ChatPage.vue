@@ -9,6 +9,7 @@
     >
       <v-list dense>
         <template v-for="item in items">
+          <!-- Header -->
           <v-layout
             row
             v-if="item.heading"
@@ -24,6 +25,7 @@
               <a href="#!" class="body-2 black--text">EDIT</a>
             </v-flex>
           </v-layout>
+          <!-- elseif: have children -->
           <v-list-group
             v-else-if="item.children"
             v-model="item.model"
@@ -53,10 +55,12 @@
               </v-list-tile-content>
             </v-list-tile>
           </v-list-group>
-          <v-list-tile v-else @click="" :key="item.text">
+          <!-- else : single -->
+          <v-list-tile v-else @click="redirectChat(item.href ? item.href : false)" :key="item.text">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
+
             <v-list-tile-content>
               <v-list-tile-title>
                 {{ item.text }}
@@ -114,10 +118,12 @@
     <!-- END: Header -->
 
     <!-- Content -->
-    <v-content>
+    <v-content class="wrap-content-chat">
+
       <!-- router-view -->
       <router-view></router-view>
       <!-- END: router-view -->
+
     </v-content>
     <!-- END: Content -->
   </div>
@@ -127,10 +133,10 @@
 export default {
   data: () => ({
     drawer: true,
-    el2: '',
     items: [
-      { icon: 'chat', text: 'Chat random' },
-      { icon: 'contacts', text: 'Contacts' }
+      { icon: 'chat', text: 'Chat random', href: 'u' },
+      { icon: 'more', text: 'Groups', href: 'groups' },
+      { icon: 'contacts', text: 'Friends', href: 'contacts' }
       // {
       //   icon: 'keyboard_arrow_up',
       //   'icon-alt': 'keyboard_arrow_down',
@@ -158,8 +164,8 @@ export default {
     ]
   }),
   methods: {
-    e2: function () {
-
+    redirectChat: function (link) {
+      this.$router.push(link)
     }
   },
   created () {
@@ -172,5 +178,8 @@ export default {
 </script>
 
 <style scoped>
-
+main.content {
+  padding-bottom: 87px !important;
+  /* height: 100vh; */
+}
 </style>

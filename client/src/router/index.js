@@ -4,6 +4,8 @@ import Router from 'vue-router'
 import DashboardPage from '@/components/DashboardPage'
 import ChatPage from '@/components/ChatPage'
 import ChatJoin from '@/components/ChatJoin'
+import ChatGroup from '@/components/ChatGroup'
+import ChatContact from '@/components/ChatContact'
 import UserLogin from '@/components/UserLogin'
 import UserRegister from '@/components/UserRegister'
 import UserForgotResetPassword from '@/components/UserForgotResetPassword'
@@ -26,8 +28,12 @@ export default new Router({
           component: ChatJoin
         },
         {
-          path: 'posts',
-          component: UserChangePassword
+          path: 'groups',
+          component: ChatGroup
+        },
+        {
+          path: 'contacts',
+          component: ChatContact
         }
       ]
     },

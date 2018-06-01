@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="display: flex; flex-direction: column;">
     <!-- Header -->
     <v-toolbar
       >
@@ -192,7 +192,7 @@
           flat
           solo-inverted
           prepend-icon="search"
-          label="Search"
+          label="Search member"
         ></v-text-field> 
         <!-- END: Search -->
       </div>
@@ -208,7 +208,7 @@
             </v-list-tile-avatar>
             <v-list-tile-content>
               <v-list-tile-title v-text="item.title">1</v-list-tile-title>
-              <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
+              <v-list-tile-sub-title>{{ item.subtitle }}</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </template>
@@ -248,6 +248,10 @@ export default {
       ]
     }
   },
+  methods: {
+    e2: function () {
+    }
+  },
   created () {
     // Set default hide two navigation-drawer
     if (document.body.clientWidth <= 1265) {
@@ -256,9 +260,12 @@ export default {
   },
   mounted () {
     // Setup style content chat
-    let cssString = 'display: flex; flex-direction: column;'
     document.documentElement.style.overflowY = 'hidden'
-    document.querySelector('main .content--wrap').style.cssText = cssString
+    document.querySelector('main .content--wrap').style.cssText = 'display: flex; flex-direction: column;'
+    document.querySelector('.wrap-content-chat').style.height = '100vh'
+  },
+  destroyed () {
+    document.querySelector('.wrap-content-chat').style.height = 'initial'
   }
 }
 </script>
@@ -353,12 +360,6 @@ export default {
 .msgap__wrap--me .msgap__content p:hover {
   background-color: #4fadfa;
 }
-
-main.content {
-  padding-bottom: 87px !important;
-  height: 100vh;
-}
-
 .toolbar {
   background: #fff;
 }

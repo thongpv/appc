@@ -17,4 +17,8 @@
 [ ] Emoji 
 [ ] Recording 
 [ ] Search friend's in chat group 
+[ ] Message not read yet
+[ ] Click hold active show option: delete, like, block
 
+- System
+[ ] Notify
