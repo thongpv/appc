@@ -134,9 +134,9 @@ export default {
   data: () => ({
     drawer: true,
     items: [
-      { icon: 'chat', text: 'Chat random', href: 'u' },
-      { icon: 'more', text: 'Groups', href: 'groups' },
-      { icon: 'contacts', text: 'Friends', href: 'contacts' }
+      { icon: 'chat', text: 'Chat random', href: '/chat/u' },
+      { icon: 'more', text: 'Groups', href: '/chat/groups' },
+      { icon: 'contacts', text: 'Friends', href: '/chat/contacts' }
       // {
       //   icon: 'keyboard_arrow_up',
       //   'icon-alt': 'keyboard_arrow_down',

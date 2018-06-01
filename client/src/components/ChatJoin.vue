@@ -9,6 +9,7 @@
       >
         <v-btn
           flat
+          @click.stop="drawerRight = !drawerRight"
         >
           Hội lập trình
           <small class="grey--text text--lighten-1 ml-1" style="font-size: 12px;">(239)</small>
@@ -18,11 +19,6 @@
       <v-btn icon>
         <i class="material-icons">videocam</i>
       </v-btn>
-      <v-toolbar-side-icon 
-        @click.stop="drawerRight = !drawerRight"
-      >
-        <i class="material-icons">list</i>
-      </v-toolbar-side-icon>
     </v-toolbar>
     <!-- END: Header -->
 
@@ -147,21 +143,83 @@
         <v-flex xs12>
           <v-layout row>
             <v-flex>
-              <v-btn
-                icon 
-                flat
-                small
+              <v-menu
+                offset-y
+                transition="slide-y-transition"
+                top 
+                :close-on-content-click="false"
               >
-                <i class="material-icons">mood</i>
-              </v-btn>
+                <v-btn slot="activator" flat icon>
+                  <i class="material-icons">mood</i>
+                </v-btn>
+                
+                <!-- Items emoji -->
+                <v-tabs
+                  dark
+                  color="cyan"
+                >
+                  <v-tabs-slider color="yellow"></v-tabs-slider>
+                  <v-tab
+                    v-for="i in 5"
+                    :key="i"
+                    :href="'#tab-' + i"
+                  >
+                    <v-icon>mood</v-icon>
+                  </v-tab>
+                  <v-tabs-items>
+                    <v-tab-item
+                      v-for="i in 15"
+                      :key="i"
+                      :id="'tab-' + i"
+                    >
+                      <v-card flat>
+                        <v-card-text>111</v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                  </v-tabs-items>
+                </v-tabs>
+                <!-- END: Items emoji -->
+              </v-menu>
 
-              <v-btn
-                icon 
-                flat
-                small
+              <v-menu
+                offset-y
+                transition="slide-y-transition"
+                top 
+                :close-on-content-click="false"
               >
-                <i class="material-icons">pages</i>
-              </v-btn>
+                <v-btn slot="activator" flat icon>
+                  <i class="material-icons">pages</i>
+                </v-btn>
+                
+                <!-- Items emoji -->
+                <v-tabs
+                  dark
+                  color="cyan"
+                  show-arrows
+                  class="emoji-tabs"
+                >
+                  <v-tabs-slider color="yellow"></v-tabs-slider>
+                  <v-tab
+                    v-for="i in 15"
+                    :key="i"
+                    :href="'#tab-' + i"
+                  >
+                    <v-icon>pages</v-icon>
+                  </v-tab>
+                  <v-tabs-items>
+                    <v-tab-item
+                      v-for="i in 15"
+                      :key="i"
+                      :id="'tab-' + i"
+                    >
+                      <v-card flat>
+                        <v-card-text>111</v-card-text>
+                      </v-card>
+                    </v-tab-item>
+                  </v-tabs-items>
+                </v-tabs>
+                <!-- END: Items emoji -->
+              </v-menu>
 
               <v-btn
                 icon 
@@ -263,6 +321,12 @@ export default {
     document.documentElement.style.overflowY = 'hidden'
     document.querySelector('main .content--wrap').style.cssText = 'display: flex; flex-direction: column;'
     document.querySelector('.wrap-content-chat').style.height = '100vh'
+    document.querySelector('.emoji-tabs').parentElement.style.display = 'block'
+    this.$nextTick(function () {
+      // Code that will run only after the
+      // entire view has been rendered
+      document.querySelector('.emoji-tabs').parentElement.style.display = 'none'
+    })
   },
   destroyed () {
     document.querySelector('.wrap-content-chat').style.height = 'initial'
@@ -362,5 +426,8 @@ export default {
 }
 .toolbar {
   background: #fff;
+}
+.tabs {
+  max-width: 255px;
 }
 </style>

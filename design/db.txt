@@ -7,4 +7,4 @@ _id  email  token  created_at
 ### group
 _id  name  password  user_id  options
 
-### 
+### emoji

@@ -7,7 +7,6 @@
 [ ] User update profile
 
 - Chat
-[ ] Chat paint
 [ ] Chat video call - single
 [ ] Chat video call - multi
 [ ] Chat/video call block spam
@@ -15,10 +14,9 @@
 [ ] Chat - multi
 [ ] Chat remove message
 [ ] Emoji 
+[ ] Chat paint
 [ ] Recording 
 [ ] Search friend's in chat group 
-[ ] Message not read yet
-[ ] Click hold active show option: delete, like, block
 
-- System
-[ ] Notify
+- Document
+[ ] https://codelabs.developers.google.com/codelabs/webrtc-web/#0 
