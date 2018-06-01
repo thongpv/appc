@@ -1,0 +1,20 @@
+- User
+[ ] User Login
+[ ] User Register
+[ ] User Reset password
+[ ] User Send mail reset password
+[ ] User Change password
+[ ] User update profile
+
+- Chat
+[ ] Chat paint
+[ ] Chat video call - single
+[ ] Chat video call - multi
+[ ] Chat/video call block spam
+[ ] Chat - single
+[ ] Chat - multi
+[ ] Chat remove message
+[ ] Emoji 
+[ ] Recording 
+[ ] Search friend's in chat group 
+

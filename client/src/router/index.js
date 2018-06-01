@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import DashboardPage from '@/components/DashboardPage'
+import ChatPage from '@/components/ChatPage'
+import ChatJoin from '@/components/ChatJoin'
 import UserLogin from '@/components/UserLogin'
 import UserRegister from '@/components/UserRegister'
 import UserForgotResetPassword from '@/components/UserForgotResetPassword'
@@ -13,7 +15,21 @@ export default new Router({
   routes: [
     {
       path: '/',
-      component: DashboardPage
+      component: ChatPage
+    },
+    {
+      path: '/chat',
+      component: ChatPage,
+      children: [
+        {
+          path: 'u',
+          component: ChatJoin
+        },
+        {
+          path: 'posts',
+          component: UserChangePassword
+        }
+      ]
     },
     {
       path: '/dashboard',
