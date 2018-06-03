@@ -179,7 +179,7 @@ export default {
 
 <style scoped>
 main.content {
-  padding-bottom: 87px !important;
+  padding-bottom: 95px !important;
   /* height: 100vh; */
 }
 </style>

@@ -124,20 +124,17 @@
       app>
       <v-layout column>
         <v-flex xs12>
-          <form>
-            <v-layout row>
-              <v-flex>
-                <v-text-field
-                  :append-icon="e2 ? 'send' : 'send'"
-                  :append-icon-cb="() => (e2 = !e2)"
-                  v-model="txtMessage"
-                  label="Enter message"
-                  solo
-                  class="inp-message"
-                ></v-text-field>
-              </v-flex>
-            </v-layout>
-          </form>
+          <v-layout row>
+            <v-flex>
+              <v-text-field
+                v-model="txtMessage"
+                label="Enter message"
+                solo
+                class="inp-message"
+                @keyup.enter="ioChatSendMessage"
+              ></v-text-field>
+            </v-flex>
+          </v-layout>
         </v-flex>
 
         <v-flex xs12>
@@ -278,9 +275,12 @@
 </template>
 
 <script>
+import config from '@/config/config'
+import io from 'socket.io-client'
 export default {
   data: function () {
     return {
+      socket: io(config.HOST_API),
       drawerRight: true,
       txtMessage: '',
       itemsUsers: [
@@ -307,7 +307,14 @@ export default {
     }
   },
   methods: {
-    e2: function () {
+    e2: function () { },
+    // socket.io
+    ioChatSendMessage: function () {
+      this.socket.emit('CHAT_SEND_MESSAGE', {
+        user: 'PhamThong',
+        message: this.txtMessage
+      })
+      this.txtMessage = ''
     }
   },
   created () {
@@ -326,6 +333,11 @@ export default {
       // Code that will run only after the
       // entire view has been rendered
       document.querySelector('.emoji-tabs').parentElement.style.display = 'none'
+    })
+    this.socket.on('IO_CHAT_MESSAGE', (data) => {
+      console.log(data)
+      // this.messages = [...this.messages, data];
+      // you can also do this.messages.push(data)
     })
   },
   destroyed () {
