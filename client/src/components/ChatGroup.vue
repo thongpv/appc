@@ -12,7 +12,7 @@
         </v-btn>
         
         <v-card>
-          <form @submit.prevent="submitNewGroup">
+          <form>
             <v-card-title>
               <span class="headline">New group</span>
             </v-card-title>
@@ -45,6 +45,8 @@
                   <v-flex xs12>
                     <v-text-field 
                       v-model="logo" 
+                      @blur="$v.logo.$touch()"
+                      :error-messages="logoErrors"
                       label="Logo">
                     </v-text-field>
                   </v-flex>
@@ -60,7 +62,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="info" :disabled="!valid" type="submit">Save</v-btn>
+              <v-btn color="info" :disabled="!valid" @click="submitNewGroup">Save</v-btn>
               <v-btn color="blue darken-1" flat @click="closeDiaNewGroup">Close</v-btn>
             </v-card-actions>
           </form>
@@ -74,7 +76,7 @@
         name=""
         label="Search"
       ></v-text-field>
-      <v-list two-line>
+      <v-list three-line>
         <template v-for="(item, index) in groups">
           <v-list-tile :key="item.title" avatar @click="">
             <v-list-tile-avatar>
@@ -82,24 +84,53 @@
             </v-list-tile-avatar>
 
             <v-list-tile-content>
-              <v-list-tile-title>
+              <v-list-tile-title :title="item.title">
+                <v-icon v-if="item.password" small color="grey" style="vertical-align: baseline;">lock</v-icon>
                 {{ item.title }}
+                <small>({{ item.total }})</small>
               </v-list-tile-title>
-              <v-list-tile-sub-title>
+
+              <v-list-tile-sub-title :title="item.subtitle" class="text--primary">
                 {{ item.subtitle }}
+              </v-list-tile-sub-title>
+
+              <v-list-tile-sub-title title="Month/Day/Year">
+                {{ item.created_at | formatDate }}
               </v-list-tile-sub-title>
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-list-tile-action-text title="Month/Day/Year">{{ item.created_at | formatDate }}</v-list-tile-action-text>
-              <small title="Total member">
-                <v-icon small color="grey">supervisor_account</v-icon> {{ item.total }}
-              </small>
+              <v-menu
+                transition="slide-y-transition"
+                bottom
+                left
+              >
+                <v-btn slot="activator" icon ripple>
+                  <v-icon color="grey">more_vert</v-icon>
+                </v-btn>
+                <v-list>
+                  <v-list-tile>
+                    <v-list-tile-title>Delete</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
             </v-list-tile-action>
           </v-list-tile>
+          <v-divider inset></v-divider>
         </template>
       </v-list>
     </v-flex>
+
+    <v-snackbar
+      :timeout="5000"
+      :color="color"
+      top
+      right
+      v-model="snackbar"
+    >
+      {{ text }}
+      <v-btn flat  @click.native="snackbar = false">Close</v-btn>
+    </v-snackbar>
   </div>
 </template>
 
@@ -110,27 +141,34 @@ import config from '@/config/config'
 import io from 'socket.io-client'
 import format from 'date-fns/format'
 
-import { required, maxLength } from 'vuelidate/lib/validators'
-import _ from 'lodash'
+import { required, maxLength, url } from 'vuelidate/lib/validators'
+import _find from 'lodash/find'
 
 Vue.use(Vuelidate)
 
 export default {
   validations: {
     title: { required, maxLength: maxLength(100) },
-    subtitle: { required, maxLength: maxLength(100) }
+    subtitle: { required, maxLength: maxLength(100) },
+    logo: { url }
   },
   data: function () {
     return {
       valid: true,
       dialogNewGroup: false,
-      socket: io(config.HOST_API),
       groups: null,
+      socket: io(config.HOST_API),
       // form new group
       title: '',
       subtitle: '',
       logo: '',
-      password: ''
+      password: '',
+      // snackbar
+      snackbar: false,
+      y: 'top',
+      x: 'right',
+      color: 'red',
+      text: 'Hello, I\'m a snackbar'
     }
   },
   computed: {
@@ -138,14 +176,20 @@ export default {
       const errors = []
       if (!this.$v.title.$dirty) return errors
       !this.$v.title.maxLength && errors.push(`Title must be at most 100 characters long`)
-      !this.$v.title.required && errors.push(`Title is required.`)
+      !this.$v.title.required && errors.push(`Title is required`)
       return errors
     },
     subtitleErrors: function () {
       const errors = []
       if (!this.$v.subtitle.$dirty) return errors
       !this.$v.subtitle.maxLength && errors.push(`Subtitle must be at most 100 characters long`)
-      !this.$v.subtitle.required && errors.push(`Subtitle is required.`)
+      !this.$v.subtitle.required && errors.push(`Subtitle is required`)
+      return errors
+    },
+    logoErrors: function () {
+      const errors = []
+      if (!this.$v.logo.$dirty) return errors
+      !this.$v.logo.url && errors.push(`Invalid format`)
       return errors
     }
   },
@@ -157,23 +201,31 @@ export default {
         // Fail
       } else {
         // OK
-        const arrTitle = _.filter(this.groups, function (o) {
+        const arrTitle = _find(this.groups, function (o) {
           return o.title === _this.title
         })
-        if (arrTitle.length > 0) {
-          console.log('no no no')
+
+        if (arrTitle) {
+          this.snackbar = true
+          this.color = 'red'
+          this.text = 'Title is exists!'
+        } else {
+          const group = {
+            title: this.title,
+            subtitle: this.subtitle,
+            logo: this.logo || 'http://via.placeholder.com/50x50',
+            total: 0,
+            created_at: new Date(),
+            password: this.password
+          }
+          this.closeDiaNewGroup()
+
+          console.log(group)
+          this.snackbar = true
+          this.color = 'success'
+          this.text = `Create new group success!`
         }
       }
-      // const group = {
-      //   title: this.title,
-      //   subtitle: this.subtitle,
-      //   logo: this.logo || 'http://via.placeholder.com/50x50',
-      //   total: 0,
-      //   created_at: new Date(),
-      //   password: this.password
-      // }
-      // this.clearNewGroup()
-      // this.groups.push(group)
     },
     closeDiaNewGroup () {
       this.clearNewGroup()
@@ -185,9 +237,6 @@ export default {
       this.subtitle = ''
       this.logo = ''
       this.password = ''
-    },
-    ioAddGroup (newGroup) {
-      this.socket.emit('IO_ADD_GROUP', newGroup)
     }
   },
   mounted () {
@@ -207,9 +256,6 @@ export default {
 <style scoped>
 .list {
   background-color: transparent;
-}
-.list__tile__content {
-  border-bottom: solid 1px #ececec;
 }
 
 .list__tile__content:last-child {

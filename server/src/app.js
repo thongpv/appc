@@ -11,25 +11,26 @@ const app = express()
 const server = app.listen(config.port, () => console.log(`Server started on port ${config.port}`))
 const io = require('socket.io')(server)
 
-io.on('connection', (socket) => {
-  let groups = JSON.stringify([
-    {
-      title: 'Group one',
-      subtitle: 'The logic for many event handlers will be more',
-      logo: 'http://via.placeholder.com/50x50',
-      total: 0,
-      created_at: new Date()
-    },
-    {
-      title: 'Group two',
-      subtitle: 'The logic for many event handlers will be more',
-      logo: 'http://via.placeholder.com/50x50',
-      total: 0,
-      created_at: new Date()
-    }
-  ])
-  io.emit('IO_GROUPS', groups)
+let groups = [
+  {
+    title: 'Group one',
+    subtitle: 'The logic for many event handlers will be more',
+    logo: 'http://via.placeholder.com/50x50',
+    total: 0,
+    created_at: new Date(),
+    password: ''
+  },
+  {
+    title: 'Group two',
+    subtitle: 'The logic for many event handlers will be more',
+    logo: 'http://via.placeholder.com/50x50',
+    total: 0,
+    created_at: new Date(),
+    password: '123'
+  }
+]
 
+io.on('connection', (socket) => {
   console.log(`User connection: ${socket.id}`)
 
   // Disconnect
@@ -37,10 +38,7 @@ io.on('connection', (socket) => {
     console.log(`User disconnect: ${socket.id}`)
   })
 
-  socket.on('CHAT_SEND_MESSAGE', function (data) {
-    io.emit('IO_CHAT_MESSAGE', data)
-    console.log(data)
-  })
+  io.emit('IO_GROUPS', JSON.stringify(groups))
 })
 
 app.use('/static', express.static(path.join(__dirname, 'public')))
