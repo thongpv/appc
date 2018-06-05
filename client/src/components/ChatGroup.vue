@@ -76,7 +76,7 @@
         name=""
         label="Search"
       ></v-text-field>
-      <v-list three-line>
+      <v-list three-line class="list-groups">
         <template v-for="(item, index) in groups">
           <v-list-tile :key="item.title" avatar @click="">
             <v-list-tile-avatar>
@@ -100,20 +100,35 @@
             </v-list-tile-content>
 
             <v-list-tile-action>
-              <v-menu
-                transition="slide-y-transition"
-                bottom
-                left
-              >
-                <v-btn slot="activator" icon ripple>
+              <!-- <v-btn slot="activator" icon ripple>
+                <v-icon color="grey">more_vert</v-icon>
+              </v-btn> -->
+
+              <v-bottom-sheet v-model="sheet">
+                <v-btn slot="activator" icon ripple class="act-btn-more">
                   <v-icon color="grey">more_vert</v-icon>
                 </v-btn>
                 <v-list>
-                  <v-list-tile>
+                  <!-- <v-subheader>Open in</v-subheader> -->
+                  <v-list-tile
+                    @click="sheet = false"
+                  >
+                    <v-list-tile-avatar>
+                      <v-icon color="red">delete_forever</v-icon>
+                    </v-list-tile-avatar>
                     <v-list-tile-title>Delete</v-list-tile-title>
                   </v-list-tile>
+
+                  <v-list-tile
+                    @click="sheet = false"
+                  >
+                    <v-list-tile-avatar>
+                      <v-icon color="warning">report_problem</v-icon>
+                    </v-list-tile-avatar>
+                    <v-list-tile-title>Report</v-list-tile-title>
+                  </v-list-tile>
                 </v-list>
-              </v-menu>
+              </v-bottom-sheet>
             </v-list-tile-action>
           </v-list-tile>
           <v-divider inset></v-divider>
@@ -154,6 +169,9 @@ export default {
   },
   data: function () {
     return {
+      // sheet
+      sheet: false,
+      // diaglog
       valid: true,
       dialogNewGroup: false,
       groups: null,
@@ -253,11 +271,7 @@ export default {
 }
 </script>
 
-<style scoped>
-.list {
-  background-color: transparent;
-}
-
+<style lang="scss" scoped>
 .list__tile__content:last-child {
   border-bottom: none;
 }
