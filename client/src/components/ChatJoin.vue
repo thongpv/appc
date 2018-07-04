@@ -2,6 +2,7 @@
   <div style="display: flex; flex-direction: column;">
     <!-- Header -->
     <v-toolbar
+      height="45"
       >
       <v-spacer></v-spacer>
       <v-toolbar-title
@@ -128,6 +129,7 @@
             <v-flex>
               <v-text-field
                 v-model="txtMessage"
+                height="20"
                 label="Enter message"
                 solo
                 class="inp-message"
@@ -138,7 +140,7 @@
         </v-flex>
 
         <v-flex xs12>
-          <v-layout row>
+          <v-layout row class="footer-tool">
             <v-flex>
               <v-menu
                 offset-y
@@ -146,7 +148,7 @@
                 top 
                 :close-on-content-click="false"
               >
-                <v-btn slot="activator" flat icon>
+                <v-btn slot="activator" flat icon class="ma-1 mt-0">
                   <i class="material-icons">mood</i>
                 </v-btn>
                 
@@ -184,7 +186,7 @@
                 top 
                 :close-on-content-click="false"
               >
-                <v-btn slot="activator" flat icon>
+                <v-btn slot="activator" flat icon class="ma-1 mt-0">
                   <i class="material-icons">pages</i>
                 </v-btn>
                 
@@ -222,6 +224,7 @@
                 icon 
                 flat
                 small
+                class="ma-1 mt-0"
               >
                 <i class="material-icons">mic</i>
               </v-btn>
@@ -346,7 +349,9 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$border-radius-chat: 15px;
+
 .footer {
   height: initial !important;
   background-color: #fff;
@@ -360,7 +365,6 @@ export default {
 #msgap {
   overflow-y: auto;
   padding: 15px;
-  padding-bottom: 50px;
 }
 
 #msgap h3 {
@@ -392,19 +396,19 @@ export default {
 .msgap__wrap .msgap__content p {
   background-color: #e6e5ea;
   color: #333;
-  padding: 10px;
+  padding: 7px 10px;
   margin-top: 0;
   margin-bottom: 5px;
-  border-radius: 0 5px 5px 0;
+  border-radius: 0 $border-radius-chat $border-radius-chat 0;
   max-width: max-content;
   cursor: pointer;
   transition: 0.15s;
 }
 .msgap__wrap .msgap__content p:first-child {
-  border-radius: 5px 5px 5px 0;
+  border-radius: $border-radius-chat $border-radius-chat $border-radius-chat 0;
 }
 .msgap__wrap .msgap__content p:last-child {
-  border-radius: 0 5px 5px 5px;
+  border-radius: 0 $border-radius-chat $border-radius-chat $border-radius-chat;
 }
 .msgap__wrap .msgap__content p:hover {
   background-color: #eeedf1;
@@ -421,17 +425,17 @@ export default {
 .msgap__wrap--me .msgap__content p {
   background-color: #289dfd;
   color: #fff;
-  padding: 10px;
+  padding: 7px 10px;
   margin-top: 0;
   margin-bottom: 5px;
-  border-radius: 5px 0 0 5px;
+  border-radius: $border-radius-chat 0 0 $border-radius-chat;
   max-width: max-content;
 }
 .msgap__wrap--me .msgap__content p:first-child {
-  border-radius: 5px 5px 0 5px;
+  border-radius: $border-radius-chat $border-radius-chat 0 $border-radius-chat;
 }
 .msgap__wrap--me .msgap__content p:last-child {
-  border-radius: 5px 0 5px 5px;
+  border-radius: $border-radius-chat 0 $border-radius-chat $border-radius-chat;
 }
 .msgap__wrap--me .msgap__content p:hover {
   background-color: #4fadfa;

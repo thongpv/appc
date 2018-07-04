@@ -275,4 +275,8 @@ export default {
 .list__tile__content:last-child {
   border-bottom: none;
 }
+
+.list-groups {
+  background-color: transparent;
+}
 </style>
